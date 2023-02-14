@@ -1,5 +1,9 @@
+using DataAccess.EFCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApp.Bootstrap;
 
@@ -19,6 +23,12 @@ namespace WebApp
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.UseServices();
+
+            // получаем строку подключения из файла конфигурации
+            string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            // добавляем контекст ApplicationContext в качестве сервиса в приложение
+            builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
 
             var app = builder.Build();
 
