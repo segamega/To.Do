@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DataAccess.EFCore.Repositories;
+using DataAccess.EFCore.UnitOfWorks;
+using Domain.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WebApp.Bootstrap
 {
@@ -21,6 +24,14 @@ namespace WebApp.Bootstrap
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+
+            #region Repositories
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddTransient<IDeveloperRepository, DeveloperRepository>();
+            services.AddTransient<IProjectRepository, ProjectRepository>();
+            #endregion
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
