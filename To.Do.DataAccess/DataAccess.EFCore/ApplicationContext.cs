@@ -1,47 +1,43 @@
-﻿using Domain.Entities;
+﻿using Domain.Entities.TaskManagement;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.EFCore
 {
     /// <summary>
-    /// 
+    /// Контекст для работы с базой данных.
     /// </summary>
     public class ApplicationContext : DbContext
     {
         /// <summary>
-        /// 
+        /// Конструктор.
         /// </summary>
-        /// <param name="options"></param>
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
+        public ApplicationContext(
+            DbContextOptions<ApplicationContext> options) 
+            : base(options)
         {
-            Database.EnsureCreated();
         }
 
         /// <summary>
-        /// 
+        /// Конфигурация.
         /// </summary>
         /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath("E:\\Projects\\Pets\\To.Do\\To.Do.WebApp\\WebApp")
-                .AddJsonFile("appsettings.json")
-                .Build();
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
         }
 
         /// <summary>
-        /// 
+        /// Категории.
         /// </summary>
-        public DbSet<Developer> Developers { get; set; }
+        public DbSet<Category> Developers { get; set; }
 
         /// <summary>
-        /// 
+        /// Проекты.
         /// </summary>
         public DbSet<Project> Projects { get; set; }
+
+        /// <summary>
+        /// Задачи.
+        /// </summary>
+        public DbSet<Task> Tasks { get; set; }
     }
 }

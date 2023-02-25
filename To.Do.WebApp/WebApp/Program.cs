@@ -29,7 +29,8 @@ namespace WebApp
             //string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
             // добавляем контекст ApplicationContext в качестве сервиса в приложение
-            builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
+            builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection,
+                b => b.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
 
             var app = builder.Build();
 

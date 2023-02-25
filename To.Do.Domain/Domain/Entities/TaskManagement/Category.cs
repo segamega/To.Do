@@ -3,7 +3,7 @@
     /// <summary>
     /// Категория.
     /// </summary>
-    public class Сategory
+    public class Category
     {
         /// <summary>
         /// Идентификатор.
